@@ -305,6 +305,7 @@ def main():
     imp.add_argument("public")
     use = commands.add_parser("activate")
     use.add_argument("name")
+    commands.add_parser("refresh")
     email = commands.add_parser("set-email")
     email.add_argument("name")
     email.add_argument("git_email")
@@ -350,6 +351,27 @@ def main():
             username = github_username(profile / "id_rsa")
             save_profile_identity(profile, username, args.git_email)
             print(json.dumps({"ok": True, "name": safe_name(args.name), "github_username": username}, ensure_ascii=False))
+        elif args.command == "refresh":
+            current = active_name()
+            refreshed, errors = [], []
+            active_username = None
+            for profile in profiles():
+                identity = profile_identity(profile) or {}
+                try:
+                    username = github_username(profile / "id_rsa")
+                    email = identity.get("email", "").strip() or public_email((profile / "id_rsa.pub").read_bytes())
+                    save_profile_identity(profile, username, email)
+                    refreshed.append(profile.name)
+                    if profile.name == current:
+                        active_username = username
+                except Exception as exc:
+                    errors.append(f"{profile.name}: {exc}")
+            if active_username:
+                try:
+                    set_global_identity(active_username, read_global_identity()["email"])
+                except Exception as exc:
+                    errors.append(str(exc))
+            print(json.dumps({"ok": True, "refreshed": refreshed, "errors": errors}, ensure_ascii=False))
         else:
             backup = activate_profile(PROFILES_DIR / safe_name(args.name))
             identity = profile_identity(PROFILES_DIR / safe_name(args.name)) or {}

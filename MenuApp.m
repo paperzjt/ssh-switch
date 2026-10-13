@@ -121,6 +121,8 @@ static NSString *L(NSString *english) {
     [menu addItem:[self item:L(@"Save Current Account…") action:@selector(saveCurrent:)]];
     [menu addItem:[self item:L(@"Import Key Pair…") action:@selector(importKey:)]];
     [menu addItem:[NSMenuItem separatorItem]];
+    [menu addItem:[self item:L(@"Refresh GitHub Usernames…") action:@selector(refreshUsernames:)]];
+    [menu addItem:[NSMenuItem separatorItem]];
     NSMenuItem *languageItem = [[NSMenuItem alloc] initWithTitle:L(@"Language") action:nil keyEquivalent:@""];
     NSMenu *languageMenu = [[NSMenu alloc] initWithTitle:L(@"Language")];
     NSString *override = [[NSUserDefaults standardUserDefaults] stringForKey:@"InterfaceLanguage"];
@@ -228,6 +230,15 @@ static NSString *L(NSString *english) {
     NSString *path = [NSHomeDirectory() stringByAppendingPathComponent:@".ssh"];
     [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:@{NSFilePosixPermissions: @0700} error:nil];
     [[NSWorkspace sharedWorkspace] openURL:[NSURL fileURLWithPath:path]];
+}
+
+- (void)refreshUsernames:(id)sender {
+    NSDictionary *result = [self runBackend:@[@"refresh"]];
+    if (!result) return;
+    NSArray *errors = [result[@"errors"] isKindOfClass:[NSArray class]] ? result[@"errors"] : @[];
+    if (errors.count) {
+        [self showError:[NSString stringWithFormat:L(@"Some accounts could not be refreshed:\n%@"), [errors componentsJoinedByString:@"\n"]]];
+    }
 }
 
 - (void)showError:(NSString *)message {

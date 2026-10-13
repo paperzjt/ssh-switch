@@ -5,6 +5,8 @@
     "No saved accounts": "还没有保存的账号",
     "Save Current Account…": "保存当前账号…",
     "Import Key Pair…": "导入密钥文件…",
+    "Refresh GitHub Usernames…": "刷新 GitHub 用户名…",
+    "Some accounts could not be refreshed:\n%@": "部分账号刷新失败：\n%@",
     "Language": "语言",
     "System Default": "跟随系统",
     "Chinese (Simplified)": "简体中文",

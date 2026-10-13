@@ -17,7 +17,7 @@ When an account is saved or imported, the app authenticates with GitHub using th
 
 ## Build
 
-On macOS, run `./build.sh`. The app is created at `~/Applications/SSH Switch.app`. Set `SSH_SWITCH_APP_PATH` to choose a different output path. Launch the app from Finder, then use its icon in the menu bar.
+On macOS 13 or later, run `./build.sh`. The app is built for both Apple Silicon and Intel, and is created at `~/Applications/SSH Switch.app`. Python 3 must be available at `/usr/bin/python3`. Set `SSH_SWITCH_APP_PATH` to choose a different output path. The downloadable app is ad-hoc signed but not notarized; macOS may require you to approve it in Privacy & Security after the first launch attempt.
 
 ---
 
@@ -40,4 +40,4 @@ On macOS, run `./build.sh`. The app is created at `~/Applications/SSH Switch.app
 
 ## 构建
 
-在 macOS 上运行 `./build.sh`。应用默认生成在 `~/Applications/SSH Switch.app`；可通过 `SSH_SWITCH_APP_PATH` 指定其他路径。可从 Finder 启动，然后点击菜单栏图标使用。
+macOS 13 或更高版本可运行 `./build.sh` 构建。应用同时支持 Apple 芯片和 Intel，默认生成在 `~/Applications/SSH Switch.app`。需要 `/usr/bin/python3`。可通过 `SSH_SWITCH_APP_PATH` 指定其他路径。下载的应用使用 ad-hoc 签名，未经 Apple 公证；首次启动时 macOS 可能要求你在“隐私与安全性”设置中手动允许。

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="72" height="54" viewBox="0 0 72 54">
+  <g fill="none" stroke="#111" stroke-linecap="round" stroke-linejoin="round" stroke-width="5.4">
+    <circle cx="21.3" cy="36" r="8.1"/>
+    <path d="M21.3 28v-21m0 13h9m-9-6h6.3"/>
+  </g>
+  <text x="40.5" y="30.5" fill="#111" font-family="-apple-system, BlinkMacSystemFont, sans-serif" font-size="20" font-weight="500">git</text>
+</svg>
